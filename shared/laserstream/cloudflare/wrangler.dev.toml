@@ -1,0 +1,10 @@
+name = "laserstream-cf-rust"
+main = "src/index.dev.ts"
+compatibility_date = "2026-01-08"
+
+[vars]
+# Put your LaserStream endpoint here (region-specific)
+# Devnet (only available in ewr):
+LASERSTREAM_ENDPOINT = "https://laserstream-devnet-ewr.helius-rpc.com"
+# Mainnet (choose region: ewr, sjc, ams, fra, sin, hkg, gru, mex):
+# LASERSTREAM_ENDPOINT = "https://laserstream-mainnet-ewr.helius-rpc.com"

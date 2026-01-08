@@ -1,0 +1,50 @@
+# Anchor
+.anchor
+target/
+node_modules/
+test-ledger/
+.DS_Store
+
+# IDL
+**/*.so
+**/idl/
+
+# Keys (NEVER commit private keys)
+*.json
+!package.json
+!tsconfig.json
+
+# Build artifacts
+**/dist/
+**/build/
+.wrangler/
+.vercel/
+.next/
+out/
+.turbo/
+
+# Environment
+.env
+.env.local
+.env.*.local
+.dev.vars
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Solana
+.solana/

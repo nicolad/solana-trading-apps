@@ -1,0 +1,23 @@
+{
+  "name": "solana-trading-apps",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "deploy": "turbo run deploy",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean",
+    "laserstream:dev": "turbo run dev --filter=laserstream-cf-rust",
+    "laserstream:deploy": "turbo run deploy --filter=laserstream-cf-rust"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}

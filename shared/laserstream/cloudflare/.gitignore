@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.wrangler/
+target/
+**/*.log
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.dev.vars
+
+# Note: No Docker-related ignores needed
+# Docker only runs on Cloudflare's servers, not locally

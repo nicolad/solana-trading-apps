@@ -1,0 +1,36 @@
+name: Deploy LaserStream to Cloudflare
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'shared/laserstream/cloudflare/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy LaserStream Container
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Build TypeScript
+        run: pnpm --filter laserstream-cf-rust build
+      
+      - name: Deploy to Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: pnpm laserstream:deploy

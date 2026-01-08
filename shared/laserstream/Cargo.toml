@@ -1,0 +1,50 @@
+[package]
+name = "laserstream-adapter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+tokio-tungstenite = "0.21"
+
+# HTTP client for gRPC
+tonic = "0.11"
+prost = "0.12"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Solana
+solana-client = "1.18"
+solana-sdk = "1.18"
+anchor-client = "0.32"
+
+# WebSocket for broadcasting
+futures-util = "0.3"
+
+# Utilities
+bs58 = "0.5"
+chrono = "0.4"
+anyhow = "1"
+thiserror = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Environment variables
+dotenv = "0.15"
+
+# Metrics
+prometheus = "0.13"
+
+# gRPC definitions (Yellowstone compatible)
+yellowstone-grpc-proto = "1.15"
+yellowstone-grpc-client = "1.15"
+
+[dev-dependencies]
+tokio-test = "0.4"
+
+[[bin]]
+name = "laserstream-adapter"
+path = "src/main.rs"

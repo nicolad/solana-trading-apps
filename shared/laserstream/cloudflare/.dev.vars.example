@@ -1,0 +1,5 @@
+# Wrangler local development secrets
+# Copy this file to .dev.vars and add your actual secrets
+# .dev.vars is gitignored and used by wrangler dev
+
+HELIUS_API_KEY=your_helius_api_key_here

@@ -1,0 +1,22 @@
+{
+  "name": "laserstream-cf-rust",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --config wrangler.dev.toml",
+    "deploy": "wrangler deploy",
+    "build": "tsc",
+    "secret:set": "wrangler secret put",
+    "secret:list": "wrangler secret list",
+    "secret:delete": "wrangler secret delete"
+  },
+  "description": "LaserStream on Cloudflare Containers. Local dev uses TypeScript only (no Docker). Production deployment uses Docker on Cloudflare's servers.",
+  "dependencies": {
+    "@cloudflare/containers": "^0.0.21"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "wrangler": "^4.58.0"
+  }
+}
