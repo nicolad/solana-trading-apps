@@ -1,0 +1,44 @@
+{
+  "name": "@solana-trading/laserstream-container",
+  "version": "0.1.0",
+  "description": "LaserStream Rust container on Cloudflare - Real-time Solana slot updates",
+  "cloudflare": {
+    "label": "LaserStream Container",
+    "products": [
+      "Workers",
+      "Durable Objects",
+      "Containers"
+    ],
+    "categories": [
+      "solana",
+      "real-time",
+      "data-streaming"
+    ],
+    "docs_url": "https://developers.cloudflare.com/containers/",
+    "preview_image_url": "https://imagedelivery.net/_yJ02hpOMj_EnGvsU2aygw/5aba1fb7-b937-46fd-fa67-138221082200/public",
+    "icon_urls": [
+      "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/5ca0ca32-e897-4699-d4c1-6b680512f000/public"
+    ]
+  },
+  "dependencies": {
+    "@cloudflare/containers": "0.0.30",
+    "hono": "4.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "typescript": "5.9.3",
+    "wrangler": "4.58.0"
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsc && cargo build --release --manifest-path=container_src/Cargo.toml",
+    "build:container": "wrangler containers build . --tag laserstream-container-rust:latest",
+    "push:container": "wrangler containers push laserstream-container-rust:latest",
+    "cf-typegen": "wrangler types",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "tail": "wrangler tail",
+    "secret:set": "wrangler secret put"
+  }
+}

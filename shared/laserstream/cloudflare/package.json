@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "wrangler dev --config wrangler.dev.toml",
     "deploy": "wrangler deploy",
+    "deploy:simple": "wrangler deploy --config wrangler.simple.toml",
     "build": "tsc",
     "secret:set": "wrangler secret put",
     "secret:list": "wrangler secret list",

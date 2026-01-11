@@ -1,4 +1,6 @@
 packages:
   - "shared/laserstream/cloudflare"
-  - "examples/*"
+  - "laserstream-container"
+  - "bots/*"
   - "strategies/*"
+  - "apps/*"

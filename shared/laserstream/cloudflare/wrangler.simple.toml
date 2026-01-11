@@ -1,0 +1,9 @@
+name = "laserstream-proxy"
+main = "src/proxy.ts"
+compatibility_date = "2026-01-08"
+
+[vars]
+# Your external LaserStream service (deployed to Fly.io, Railway, etc.)
+LASERSTREAM_SERVICE_URL = "https://your-laserstream-service.fly.dev"
+# Or use the local standalone service for now
+# LASERSTREAM_SERVICE_URL = "http://localhost:8080"

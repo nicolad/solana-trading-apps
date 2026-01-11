@@ -3,22 +3,14 @@ main = "src/index.ts"
 compatibility_date = "2026-01-08"
 
 [vars]
-# Put your LaserStream endpoint here (region-specific)
-# Devnet (only available in ewr):
 LASERSTREAM_ENDPOINT = "https://laserstream-devnet-ewr.helius-rpc.com"
-# Mainnet (choose region: ewr, sjc, ams, fra, sin, hkg, gru, mex):
-# LASERSTREAM_ENDPOINT = "https://laserstream-mainnet-ewr.helius-rpc.com"
 
 [[durable_objects.bindings]]
-name = "LASER_CONTAINER"
-class_name = "LaserStreamContainer"
+name = "LASER"
+class_name = "LaserContainer"
 
 [[migrations]]
 tag = "v1"
-new_classes = ["LaserStreamContainer"]
-
-[[containers]]
-class_name = "LaserStreamContainer"
-image = "./container/Dockerfile"
+new_classes = ["LaserContainer"]
 
 

@@ -9,8 +9,11 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
-    "laserstream:dev": "turbo run dev --filter=laserstream-cf-rust",
-    "laserstream:deploy": "turbo run deploy --filter=laserstream-cf-rust"
+    "container:dev": "turbo run dev --filter=@solana-trading/laserstream-container",
+    "container:build": "turbo run build:container --filter=@solana-trading/laserstream-container",
+    "container:deploy": "turbo run deploy --filter=@solana-trading/laserstream-container",
+    "container:tail": "turbo run tail --filter=@solana-trading/laserstream-container",
+    "container:secret": "cd laserstream-container && wrangler secret put"
   },
   "devDependencies": {
     "turbo": "^2.3.3"

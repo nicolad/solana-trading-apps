@@ -22,7 +22,7 @@ solana-trading-apps/
 │   ├── websocket/        # WebSocket client/server
 │   ├── types/            # Common types
 │   └── utils/            # Shared utilities
-├── examples/             # Complete working examples
+├── bots/                 # Complete working bots
 │   ├── jupiter-laserstream-bot/  # Bot using LaserStream + Jupiter
 │   └── backtest/         # Backtesting examples
 └── docs/
@@ -93,7 +93,7 @@ Momentum-based trading strategies.
 
 ## Utilities
 
-### 1. LaserStream (`shared/laserstream`)
+### 1. LaserStream (`shared/laserstream`, `laserstream-container`)
 
 **Status**: Available
 
@@ -106,6 +106,14 @@ Real-time Solana data streaming utility using Helius LaserStream.
 - Multi-node reliability
 - Auto-reconnection
 - gRPC protocol with WebSocket broadcasting
+
+**Deployments**:
+
+- **Cloudflare Container**: [https://laserstream-container.eeeew.workers.dev/](https://laserstream-container.eeeew.workers.dev/)
+  - Real-time slot updates via LaserStream gRPC SDK
+  - Endpoints: `/health`, `/start`, `/latest`
+  - Technology: Rust (Axum) + TypeScript (Hono Worker)
+  - See [laserstream-container/README.md](laserstream-container/README.md) for details
 
 **Use Case**: Get real-time price feeds from on-chain swaps for strategy signals.
 
@@ -155,7 +163,7 @@ Following the **NautilusTrader pattern**, this repository separates:
 - **Deployment**: Vercel serverless
 - **Examples**: DCA, arbitrage, grid trading
 
-### 4. **Examples** (`examples/`) - Complete implementations
+### 4. **Bots** (`bots/`) - Complete implementations
 
 - Working combinations of utilities + strategies + adapters
 - Best practices and patterns
@@ -168,6 +176,7 @@ Following the **NautilusTrader pattern**, this repository separates:
 | **Adapter** | Execute trades on-chain | `adapters/` | Protocol interface |
 | **Utility** | Provide data/infrastructure | `shared/` | Data source |
 | **Strategy** | Make trading decisions | `strategies/` | Business logic |
+| **Bot** | Complete implementation | `bots/` | Application |
 
 **Example Flow**: LaserStream (utility) → provides prices → Strategy → generates signal → Jupiter adapter → executes swap
 
@@ -175,29 +184,96 @@ See [Architecture Overview](docs/ARCHITECTURE_OVERVIEW.md) for detailed explanat
 
 ### Prerequisites
 
-- Rust 1.75+
-- Solana CLI 1.18+
-- Anchor 0.32.1+
-- Node.js 20+ (for TypeScript)
-- Vercel CLI (for serverless deployment)
+- **Rust 1.83+** (for on-chain programs and containers)
+- **Solana CLI 1.18+** (for Solana deployment)
+- **Anchor 0.32.1+** (for Solana program framework)
+- **Node.js 20+** (for TypeScript/JavaScript)
+- **pnpm 9+** (package manager)
+- **Docker Desktop** (for building containers)
+- **Wrangler CLI** (for Cloudflare deployment)
 
 ### Quick Start
 
+#### 1. Clone and Install
+
 ```bash
-# Build on-chain adapter
+git clone <your-repo-url>
+cd solana-trading-apps
+pnpm install
+```
+
+#### 2. Configure Environment
+
+```bash
+# Copy environment template
+cp .env.example .env
+
+# Edit .env and fill in your secrets
+# Required: HELIUS_API_KEY, PRIVATE_KEY
+```
+
+#### 3. Set Up Cloudflare Secrets
+
+```bash
+# Set Helius API key (get from https://dev.helius.xyz/)
+echo "your_helius_api_key" | pnpm run container:secret HELIUS_API_KEY
+
+# Or interactively
+pnpm run container:secret HELIUS_API_KEY
+# Then paste your key when prompted
+```
+
+#### 4. Deploy LaserStream Container
+
+```bash
+# Build, push, and deploy to Cloudflare
+pnpm run container:deploy
+```
+
+#### 5. Monitor Deployment
+
+```bash
+# View container logs in real-time
+pnpm run container:tail
+
+# Test endpoints
+curl https://laserstream-container.eeeew.workers.dev/health
+```
+
+#### 6. (Optional) Deploy On-chain Programs
+
+```bash
+# Build and deploy Jupiter vault adapter
 cd adapters/jupiter-vault
 anchor build
 anchor test
-anchor deploy
-
-# Deploy serverless strategy to Vercel
-cd strategies/dca
-vercel deploy
-
-# Deploy API to Vercel
-cd api
-vercel deploy
+anchor deploy --provider.cluster devnet
 ```
+
+## Available Commands
+
+### Root Commands
+
+```bash
+pnpm run dev                    # Start all services in dev mode
+pnpm run build                  # Build all packages
+pnpm run deploy                 # Deploy all services
+pnpm run test                   # Run all tests
+pnpm run lint                   # Lint all packages
+pnpm run clean                  # Clean all build artifacts
+```
+
+### Container-Specific Commands
+
+```bash
+pnpm run container:dev          # Start container in dev mode
+pnpm run container:build        # Build Docker image
+pnpm run container:deploy       # Deploy to Cloudflare
+pnpm run container:tail         # View live logs
+pnpm run container:secret       # Set Cloudflare secrets (interactive)
+```
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
 
 ## Development Philosophy
 

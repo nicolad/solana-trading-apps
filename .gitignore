@@ -23,6 +23,10 @@ test-ledger/
 out/
 .turbo/
 
+# Containers
+container_src/target/
+**/.wrangler/
+
 # Environment
 .env
 .env.local
